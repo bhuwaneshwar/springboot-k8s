@@ -30,7 +30,7 @@ jobs:
       - name: Build & push Docker image again
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: bhuwaneshwar/azurerepo:latest            # Replace with your actual image name (e.g. containerregistry055.azurecr.io/springboot-k8s)
+          image: bhuwaneshwar/azurerepo            # Replace with your actual image name (e.g. containerregistry055.azurecr.io/springboot-k8s)
           tags: latest
           registry: docker.io    # Replace with your actual registry (e.g. containerregistry055.azurecr.io)
           dockerfile: Dockerfile    # Make sure this Dockerfile exists in your repo or change to Dockerfile
