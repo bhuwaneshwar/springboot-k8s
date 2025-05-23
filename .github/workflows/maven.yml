@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# 👇 Required permissions for dependency submission
+# ✅ Required permissions for dependency submission (can stay even if not used)
 permissions:
   contents: read
   id-token: write
@@ -40,5 +40,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@v4
+      # 🔒 Disabled due to permission issue (403) with dependency submission
+      # - name: Update dependency graph
+      #   uses: advanced-security/maven-dependency-submission-action@v4
