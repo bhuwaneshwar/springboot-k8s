@@ -27,7 +27,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Build & push Docker image
+      - name: Build & push Docker image again
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: bhuwaneshwar/azurerepo:latest            # Replace with your actual image name (e.g. containerregistry055.azurecr.io/springboot-k8s)
