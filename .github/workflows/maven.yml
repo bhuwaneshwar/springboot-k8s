@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# ✅ Required permissions for dependency submission (can stay even if not used)
 permissions:
   contents: read
   id-token: write
@@ -40,6 +39,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🔒 Disabled due to permission issue (403) with dependency submission
-      # - name: Update dependency graph
-      #   uses: advanced-security/maven-dependency-submission-action@v4
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Set up Kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+
+      - name: Deploy to Kubernetes (springboot-k8s)
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl rollout status deployment/springboot-k8s
