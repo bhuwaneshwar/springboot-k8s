@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up kubectl
+      - name: Set up kubectl new
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
