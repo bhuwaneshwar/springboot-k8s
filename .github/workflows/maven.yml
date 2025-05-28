@@ -51,5 +51,5 @@ jobs:
 
       - name: Deploy to Kubernetes (springboot-k8s)
         run: |
-          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f deployment.yaml
           kubectl rollout status deployment/springboot-k8s
