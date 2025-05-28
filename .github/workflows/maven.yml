@@ -49,31 +49,8 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > $HOME/.kube/config
 
-      - name: Deploy Deployment & Service to Kubernetes
+      - name: Deploy to Kubernetes (springboot-k8s)
         run: |
           kubectl apply -f deployment.yaml
-
-          # Create the LoadBalancer service inline (if service.yaml is not in repo)
-          cat <<EOF | kubectl apply -f -
-          apiVersion: v1
-          kind: Service
-          metadata:
-            name: springboot-service
-          spec:
-            type: LoadBalancer
-            selector:
-              app: springboot-k8s
-            ports:
-              - protocol: TCP
-                port: 80
-                targetPort: 8080
-          EOF
-
-          # Wait for deployment rollout
+          kubectl apply -f service.yaml  # <--- Add this line
           kubectl rollout status deployment/springboot-k8s
-
-      - name: Get external IP (optional debug)
-        run: |
-          echo "Waiting for external IP..."
-          sleep 60  # give time for IP assignment
-          kubectl get service springboot-service
